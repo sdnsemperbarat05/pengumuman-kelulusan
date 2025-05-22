@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pengumuman Kelulusan SDN SEMPER BARAT 05</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: 50px auto; padding: 20px; background: #f9f9f9; border-radius: 10px; }
+    input, button { padding: 10px; margin: 5px 0; width: 100%; }
+    .result { margin-top: 20px; padding: 15px; border-radius: 8px; background: #e0f7e9; display: none; }
+    .not-found { background: #ffe0e0; }
+  </style>
+</head>
+<body>
+  <h2>Pengumuman Kelulusan SDN SEMPER BARAT 05</h2>
+  <p>Masukkan NISN dan Tanggal Lahir untuk melihat status kelulusan Anda.</p>
+
+  <input type="text" id="nisn" placeholder="Masukkan NISN" />
+  <input type="date" id="dob" placeholder="Masukkan Tanggal Lahir" />
+  <button onclick="cekKelulusan()">Cek Kelulusan</button>
+
+  <div id="hasil" class="result"></div>
+
+  <script>
+    const dataSiswa = [
+      { nama: "AFIKAH SITI MAHFUDZO", dob: "2012-06-22", nisn: "3126181611", status: "LULUS" },
+      { nama: "AMMAR ZAIDAN CAMPAVA", dob: "2012-09-05", nisn: "0126518474", status: "LULUS" },
+      { nama: "BIANCA ASRI WULANDARI", dob: "2010-09-15", nisn: "0102501319", status: "LULUS" },
+      { nama: "FAIZ MUZAQI", dob: "2011-11-07", nisn: "3127842120", status: "LULUS" },
+      { nama: "FAVIO AZKA RIZKI", dob: "2012-07-10", nisn: "3121933697", status: "LULUS" },
+      { nama: "HARY IKHLAS LAKSAMANA", dob: "2011-05-02", nisn: "0114304376", status: "LULUS" },
+      { nama: "HAUZAN AKHTAR", dob: "2012-09-08", nisn: "3123085151", status: "LULUS" },
+      { nama: "IKHSAN SURYA PUTRA", dob: "2012-07-25", nisn: "0128536712", status: "LULUS" },
+      { nama: "IKHWAN SURYA PUTRA", dob: "2012-07-25", nisn: "0126752024", status: "LULUS" },
+      { nama: "KEVIN GIOVANI MAKAAMPOH", dob: "2012-07-07", nisn: "0122491219", status: "LULUS" },
+      { nama: "LIDYA DEVITA", dob: "2012-11-12", nisn: "3124597042", status: "LULUS" },
+      { nama: "MUHAMAD RIZKI SAPUTRA", dob: "2012-02-16", nisn: "3128822310", status: "LULUS" },
+      { nama: "MUHAMMAD DEVIS JORDAN HASLAM", dob: "2012-06-24", nisn: "3125373972", status: "LULUS" },
+      { nama: "MUHAMMAD NUR AZZAM", dob: "2012-07-09", nisn: "3121927707", status: "LULUS" },
+      { nama: "MUHAMMAD RAYYAN CHAIRUL CHAKIM", dob: "2012-08-20", nisn: "3126028733", status: "LULUS" },
+      { nama: "MUHAMMAD RIZKY MAULANA", dob: "2012-05-26", nisn: "3121802741", status: "LULUS" },
+      { nama: "NAILA LAILATUS SA'IDAH", dob: "2012-09-11", nisn: "3128082698", status: "LULUS" },
+      { nama: "NAJWA SYAKIRA PUTRI", dob: "2012-07-23", nisn: "0124462379", status: "LULUS" },
+      { nama: "NAUFAL 'AZZAM SYAFI'I", dob: "2012-02-07", nisn: "3124426989", status: "LULUS" },
+      { nama: "NAZWA AWALYA", dob: "2012-07-05", nisn: "3127476875", status: "LULUS" },
+      { nama: "NUR RIZKY APRILIANA", dob: "2012-04-29", nisn: "3126004244", status: "LULUS" },
+      { nama: "PANDU DEWANTARA", dob: "2011-06-21", nisn: "0116502753", status: "LULUS" },
+      { nama: "PUTRA AZKA HABIBI", dob: "2012-08-18", nisn: "3129302519", status: "LULUS" },
+      { nama: "RAISYA ALIFA ANSYAD", dob: "2012-10-31", nisn: "3124569660", status: "LULUS" },
+      { nama: "RENI NAFASHA", dob: "2012-08-21", nisn: "3128654342", status: "LULUS" },
+      { nama: "SALWA AZ-ZAHRA NURRAMADHANI", dob: "2012-07-26", nisn: "0127755659", status: "LULUS" },
+      { nama: "SURYA RAFA RAMADHAN", dob: "", nisn: "3126797920", status: "LULUS" },
+      { nama: "SUZETTE GABRIELLA LAFIONA L", dob: "2012-05-27", nisn: "3125984521", status: "LULUS" },
+      { nama: "ZAHRANI PUTRI TATIANA", dob: "2012-08-12", nisn: "3122118230", status: "LULUS" }
+    ];
+
+    function cekKelulusan() {
+      const nisn = document.getElementById('nisn').value.trim();
+      const dob = document.getElementById('dob').value;
+      const hasil = document.getElementById('hasil');
+
+      const siswa = dataSiswa.find(s => s.nisn === nisn && s.dob === dob);
+
+      if (siswa) {
+        hasil.className = "result";
+        hasil.innerHTML = `
+          <h3>Selamat!</h3>
+          <p>Nama: <strong>${siswa.nama}</strong></p>
+          <p>NISN: <strong>${siswa.nisn}</strong></p>
+          <p>Status Kelulusan: <strong>${siswa.status}</strong></p>
+          <button onclick="window.print()">Cetak Bukti Kelulusan</button>
+        `;
+        hasil.style.display = "block";
+      } else {
+        hasil.className = "result not-found";
+        hasil.innerHTML = `<p>Data tidak ditemukan. Periksa kembali NISN dan Tanggal Lahir Anda.</p>`;
+        hasil.style.display = "block";
+      }
+    }
+  </script>
+</body>
+</html>
